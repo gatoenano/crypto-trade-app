@@ -1,7 +1,7 @@
 // Core
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 // Interfaces
-import { ItemsGroupOptions, ItemsGroup } from '../../interfaces/item';
+import { ItemsGroupOptions, ItemsGroup } from '../../interfaces/item.interface';
 
 @Component({
   selector: 'app-items-list',
