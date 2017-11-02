@@ -9,6 +9,12 @@ app-root {
   height: 100%;
 }
 
+app-items-list {
+  li.active {
+    pointer-events: none;
+  }
+}
+
 app-footer {
   margin-top: auto;
 }

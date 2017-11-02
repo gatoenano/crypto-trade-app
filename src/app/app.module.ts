@@ -1,20 +1,23 @@
+// Core
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-
+import { NgModule, LOCALE_ID } from '@angular/core';
+// Components
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { FooterComponent } from './components/footer/footer.component';
+import { NavbarComponent, FooterComponent, ItemsListComponent } from './components';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    FooterComponent
+    FooterComponent,
+    ItemsListComponent
   ],
   imports: [
     BrowserModule
   ],
-  providers: [],
+  providers: [
+    { provide: LOCALE_ID, useValue: 'en-Us' }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
