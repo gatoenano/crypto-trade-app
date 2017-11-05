@@ -38,71 +38,49 @@ export class AppComponent implements OnInit {
 
   // lists
   list$: Observable<ListContentType>;
+  // trades related
+  tradeDealInfo: Item;
+  showTradeInfo: boolean;
 
   // UI loading
   reloadingData = false;
+  countdown$: Observable<any>;
+  tmp = 10;
   count = 0;
-  timerSubscription: any;
-  tradeDealInfo: Item;
 
   constructor(
     private apiService: ApiService,
     private sortPipe: SortPipe,
     private datePipe: DatePipe
-  ) { }
+  ) {
+    // once
+    this.init();
+    this.countDown();
+  }
 
   ngOnInit() {
-    this.init();
+    // @TODO: just for development, remove when websockets are ready
+    setInterval(() => {
+      this.init();
+      this.tmp = 10;
+      this.countDown();
+    }, 10000);
   }
 
   /**
    * Init function
    */
   init(): void {
-
-    // start a timer after one second
-    /*
-    const timer = Observable.timer(2000, 3000);
-    this.timerSubscription = timer.subscribe((t: any) => {
-      // call your getPowerBlock function here
-      console.log('you t: ', t);
-      // subscribe to orders list
-      this.list$ = this.apiService.getOrders(this.count, 20).share();
-      console.log('this.list$: ', this.list$);
-      // check for trades
-      this.list$.subscribe((data: ListContentType) => {
-        console.log('this.list$ subscribe data: ', data);
-        this.checkForTrades(data);
-        this.count = this.count + 10;
-      });
-    });
-    */
     // subscribe to orders list
-    this.list$ = this.apiService.getOrders(this.count, 20).share();
+    this.list$ = this.apiService.getOrders(this.count, 30).share();
 
-    // check for trades
     this.list$.subscribe((data: ListContentType) => {
-      console.log('this.list$ subscribe data: ', data);
-      // check for trades
-      const list = this.apiService.checkForTrades(data);
-      // set the show to display
-      this.showLatestResults(list);
+      // update counter
       this.count = this.count + 10;
+      // check for trades
+      // @TODO: remove delays when websockets are ready
+      setTimeout(() => this.apiService.checkForTrades(data), 1500);
     });
-  }
-
-  /**
-   * Sets the maximum results to display for every type
-   * @param list object
-   */
-  showLatestResults(list: ListContentType): ListContentType {
-    list = {
-      buy: list.buy.slice(Math.max(list.buy.length - 20, 0)),
-      sell: list.sell.slice(Math.max(list.sell.length - 20, 0)),
-      trade: list.trade.slice(Math.max(list.trade.length - 30, 0)),
-    };
-
-    return list;
   }
 
   /**
@@ -110,6 +88,28 @@ export class AppComponent implements OnInit {
    * @param id number
    */
   showData(id: number): void {
-    this.tradeDealInfo = this.apiService.getDataFromLocalStorage(id);
+    const tradeDealInfo = this.apiService.getDataFromLocalStorage(id);
+    if (tradeDealInfo) {
+      this.tradeDealInfo = tradeDealInfo;
+      this.showTradeInfo = true;
+    } else {
+      this.showTradeInfo = false;
+    }
+  }
+
+  /**
+   * Closes the trade deals info box
+   */
+  closeInfoBox(): void {
+    this.tradeDealInfo = null;
+  }
+
+  /**
+   * Countdown timer (development purposes)
+   */
+  countDown() {
+    this.countdown$ = Observable.timer(0, 1000)
+      .take(this.tmp)
+      .map(() => --this.tmp);
   }
 }

@@ -1,4 +1,7 @@
 /* General */
+body {
+  overflow-y: scroll;
+}
 html, body {
   height: 100%;
 }
@@ -66,10 +69,24 @@ app-footer {
 }
 
 .fadeOut {
-  animation-name: fadeIn;
+  animation-name: fadeOut;
 }
 
 /* Utils */
 .pointer {
   cursor: pointer;
+}
+.pos-relative {
+  position: relative;
+}
+.trade-info {
+  color: #fff;
+  opacity: 0;
+  padding: 0.5rem;
+  position: absolute;
+  width: 100%;
+
+  & > div {
+    flex: 1;
+  }
 }

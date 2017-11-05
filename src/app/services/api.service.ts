@@ -49,16 +49,18 @@ export class ApiService {
    * @param data array
    */
   setOrders(data: any[]): ListContentType {
-    console.log('ordersSubscription data: ', data);
     let list: ListContentType = {};
+
+    const buy: Item[] = data.find(arr => arr[0].type === ListType[ListType.buy]);
+    const sell: Item[] = data.find(arr => arr[0].type === ListType[ListType.sell]);
 
     if (data.length) {
       list = {
-        buy: data.find(arr => arr[0].type === ListType[ListType.buy]),
-        sell: data.find(arr => arr[0].type === ListType[ListType.sell])
+        buy: buy.slice(Math.max(buy.length - 20, 0)),
+        sell: sell.slice(Math.max(sell.length - 20, 0))
       };
     }
-    console.log('setOrders list: ', list);
+
     return list;
   }
 
@@ -118,6 +120,7 @@ export class ApiService {
       return;
     }, []));
 
+    list.trade.slice(Math.max(list.trade.length - 30, 0));
     return list;
   }
 
