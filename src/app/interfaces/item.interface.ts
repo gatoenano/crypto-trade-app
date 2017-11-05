@@ -1,23 +1,15 @@
 export interface Item {
   id: number;
-  side: string;
+  type: string;
   quantity: number;
   price: number;
 }
 
-export interface ItemsListInfo {
+export interface ItemsGroupOptions {
   title: string;
   price: string;
   quantity: string;
   currency: string;
   date: number;
-}
-
-export interface ItemsGroup {
-  info?: ItemsListInfo;
-  items?: Item[];
-}
-
-export interface ItemsGroupOptions {
   dateFormat: string;
 }

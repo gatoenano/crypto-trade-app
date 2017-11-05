@@ -1,3 +1,46 @@
 <app-navbar></app-navbar>
-<div class="container"></div>
+
+<div class="container">
+  <div class="row">
+    <div class="col col-md-12 col-lg-8">
+      <h4 class="d-flex w100">Orders</h4>
+      <div class="row border border-primary border-top-0 border-bottom-0 border-left-0">
+        <div class="col col-md-6">
+          <app-items-list [list]="(list$ | async)?.buy" [options]="options"></app-items-list>
+        </div>
+        <div class="col col-md-6">
+          <app-items-list [list]="(list$ | async)?.sell" [options]="options"></app-items-list>
+        </div>
+      </div>
+    </div>
+    <div class="col col-lg-4">
+      <h4 class="d-flex w100">Trades</h4>
+      <div class="row">
+        <div class="col">
+          <app-items-list [list]="(list$ | async)?.trade" [options]="options" (selected)="showData($event)">
+            <div *ngIf="tradeDealInfo" class="row" itemInfo>
+              <div class="col">
+                <p>Trade Info</p>
+                <span>{{tradeDealInfo.id}}</span>
+              </div>
+              <div class="col">
+                <p>Buy Order</p>
+                <span>id: {{tradeDealInfo.buy.id}}</span>
+                <span>price: {{tradeDealInfo.buy.price}}</span>
+                <span>quantity: {{tradeDealInfo.buy.quantity}}</span>
+              </div>
+              <div class="col">
+                <p>Sell Order</p>
+                <span>id: {{tradeDealInfo.sell.id}}</span>
+                <span>price: {{tradeDealInfo.sell.price}}</span>
+                <span>quantity: {{tradeDealInfo.sell.quantity}}</span>
+              </div>
+            </div>
+          </app-items-list>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <app-footer></app-footer>
