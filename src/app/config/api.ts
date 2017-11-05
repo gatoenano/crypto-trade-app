@@ -2,7 +2,7 @@
 import { HttpHeaders } from '@angular/common/http';
 
 // API config
-const APIUrl = 'http://localhost:5001/listOrders/';
+const APIUrl = '/listOrders';
 const APIHeaders = new HttpHeaders({
   'Accept': 'application/json',
   'Access-Control-Allow-Origin': '*',
