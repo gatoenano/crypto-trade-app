@@ -1,15 +1,15 @@
 // Core
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 // Interfaces
-import { ItemsGroupOptions, ItemsGroup } from '../../interfaces/item';
+import { ItemsGroupOptions, ListContentType } from '../../interfaces';
 
 @Component({
   selector: 'app-items-list',
   templateUrl: './items-list.component.html'
 })
-export class ItemsListComponent implements OnInit {
+export class ItemsListComponent {
   // input to get the items
-  @Input() list: ItemsGroup;
+  @Input() list: ListContentType;
 
   // options for the component
   @Input() options: ItemsGroupOptions;
@@ -21,10 +21,6 @@ export class ItemsListComponent implements OnInit {
   selectedItem: number;
 
   constructor() { }
-
-  ngOnInit(): void {
-    console.log('ItemsListComponent loaded');
-  }
 
   /**
    * Set element to active state

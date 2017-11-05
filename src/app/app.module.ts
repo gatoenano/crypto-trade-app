@@ -1,6 +1,12 @@
 // Core
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, LOCALE_ID } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+// Services
+import { ApiService } from './services/api.service';
+// Pipes
+import { SortPipe } from './pipes/sort.pipe';
+import { DatePipe } from '@angular/common';
 // Components
 import { AppComponent } from './app.component';
 import { NavbarComponent, FooterComponent, ItemsListComponent } from './components';
@@ -10,12 +16,17 @@ import { NavbarComponent, FooterComponent, ItemsListComponent } from './componen
     AppComponent,
     NavbarComponent,
     FooterComponent,
-    ItemsListComponent
+    ItemsListComponent,
+    SortPipe
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpClientModule
   ],
   providers: [
+    ApiService,
+    SortPipe,
+    DatePipe,
     { provide: LOCALE_ID, useValue: 'en-Us' }
   ],
   bootstrap: [AppComponent]
