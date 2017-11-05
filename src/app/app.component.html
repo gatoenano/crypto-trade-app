@@ -1,20 +1,48 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{title}}!
-  </h1>
-  <img width="300" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<app-navbar></app-navbar>
 
+<div class="container pb-5">
+  <strong class="d-block mb-4">Next list in... {{countdown$ | async}}</strong>
+  <div class="row">
+    <div class="col col-md-12 col-lg-8">
+      <h4 class="d-flex w100">Orders</h4>
+      <div class="row border border-primary border-top-0 border-bottom-0 border-left-0">
+        <div class="col col-md-6">
+          <app-items-list [list]="(list$ | async)?.buy" [options]="options"></app-items-list>
+        </div>
+        <div class="col col-md-6">
+          <app-items-list [list]="(list$ | async)?.sell" [options]="options"></app-items-list>
+        </div>
+      </div>
+    </div>
+    <div class="col col-lg-4">
+      <h4 class="d-flex w100">Trades</h4>
+      <div class="row">
+        <div class="col">
+          <app-items-list [list]="(list$ | async)?.trade" [options]="options" (selected)="showData($event)">
+            <div *ngIf="tradeDealInfo" class="d-flex animated bg-primary trade-info" [ngClass]="{'fadeIn fast': showTradeInfo === true}" itemInfo>
+              <div class="flex-column">
+                <p>Trade Info</p>
+                <span>{{tradeDealInfo.id}}</span>
+              </div>
+              <div class="flex-column">
+                <p>Buy Order</p>
+                <p>id: {{tradeDealInfo.buy.id}}</p>
+                <p>price: {{tradeDealInfo.buy.price}}</p>
+                <p>quantity: {{tradeDealInfo.buy.quantity}}</p>
+              </div>
+              <div class="flex-column">
+                <p>Sell Order</p>
+                <p>id: {{tradeDealInfo.sell.id}}</p>
+                <p>price: {{tradeDealInfo.sell.price}}</p>
+                <p>quantity: {{tradeDealInfo.sell.quantity}}</p>
+              </div>
+              <span class="pointer" (click)="closeInfoBox()">X</span>
+            </div>
+          </app-items-list>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>
