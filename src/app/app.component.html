@@ -1,6 +1,7 @@
 <app-navbar></app-navbar>
 
-<div class="container">
+<div class="container pb-5">
+  <strong class="d-block mb-4">Next list in... {{countdown$ | async}}</strong>
   <div class="row">
     <div class="col col-md-12 col-lg-8">
       <h4 class="d-flex w100">Orders</h4>
@@ -18,23 +19,24 @@
       <div class="row">
         <div class="col">
           <app-items-list [list]="(list$ | async)?.trade" [options]="options" (selected)="showData($event)">
-            <div *ngIf="tradeDealInfo" class="row" itemInfo>
-              <div class="col">
+            <div *ngIf="tradeDealInfo" class="d-flex animated bg-primary trade-info" [ngClass]="{'fadeIn fast': showTradeInfo === true}" itemInfo>
+              <div class="flex-column">
                 <p>Trade Info</p>
                 <span>{{tradeDealInfo.id}}</span>
               </div>
-              <div class="col">
+              <div class="flex-column">
                 <p>Buy Order</p>
-                <span>id: {{tradeDealInfo.buy.id}}</span>
-                <span>price: {{tradeDealInfo.buy.price}}</span>
-                <span>quantity: {{tradeDealInfo.buy.quantity}}</span>
+                <p>id: {{tradeDealInfo.buy.id}}</p>
+                <p>price: {{tradeDealInfo.buy.price}}</p>
+                <p>quantity: {{tradeDealInfo.buy.quantity}}</p>
               </div>
-              <div class="col">
+              <div class="flex-column">
                 <p>Sell Order</p>
-                <span>id: {{tradeDealInfo.sell.id}}</span>
-                <span>price: {{tradeDealInfo.sell.price}}</span>
-                <span>quantity: {{tradeDealInfo.sell.quantity}}</span>
+                <p>id: {{tradeDealInfo.sell.id}}</p>
+                <p>price: {{tradeDealInfo.sell.price}}</p>
+                <p>quantity: {{tradeDealInfo.sell.quantity}}</p>
               </div>
+              <span class="pointer" (click)="closeInfoBox()">X</span>
             </div>
           </app-items-list>
         </div>

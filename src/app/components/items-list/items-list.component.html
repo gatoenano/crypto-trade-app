@@ -8,28 +8,21 @@
         <th scope="col">{{ options.quantity }}</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody class="pos-relative">
       <ng-content select="[itemInfo]"></ng-content>
-      <tr *ngFor="let item of list, let i = index"
-        (click)="selected.emit(item.id); activeItem(i)"
-        [ngClass]="{'table-active': selectedItem == i}"
-        class="animated fadeIn">
-        <th scope="row">{{ item.id }}</th>
-        <td>{{ item.type }}</td>
-        <td>{{ item.price }}</td>
-        <td>{{ item.quantity }}</td>
-      </tr>
-      <!--
+
       <ng-container *ngFor="let item of list, let i = index">
-        <tr *ngIf="item.quantity !== 0" (click)="selected.emit(item.id); activeItem(i)" [ngClass]="{'table-active': selectedItem == i}"
-          class="animated fadeIn">
+        <tr *ngIf="item.quantity !== 0"
+          @easeInOut
+          (click)="selected.emit(item.id); activeItem(i)"
+          [ngClass]="{'table-active': selectedItem == i}"
+          class="animated">
           <th scope="row">{{ item.id }}</th>
           <td>{{ item.type }}</td>
-          <td>{{ item.price }}</td>
-          <td>{{ item.quantity }}</td>
+          <td align="center">{{ item.price }}</td>
+          <td align="center">{{ item.quantity }}</td>
         </tr>
       </ng-container>
-      -->
     </tbody>
   </table>
 </ng-container>
